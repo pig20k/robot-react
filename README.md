@@ -1,4 +1,126 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# 人工智能仿真
+
+### 页面设计
+
+![image-20200308143202436](C:\Users\dav1d\AppData\Roaming\Typora\typora-user-images\image-20200308143202436.png)
+
+#### 效果
+
+![image-20200308144421396](C:\Users\dav1d\AppData\Roaming\Typora\typora-user-images\image-20200308144421396.png)
+
+## 使用React 搭建网站
+
+#### 项目结构
+
+![image-20200308142852084](C:\Users\dav1d\AppData\Roaming\Typora\typora-user-images\image-20200308142852084.png)
+
+#### 项目代码
+
+- 页面设计（topic.jsx）
+
+```html
+  <div className="topic">
+        <div className="container">
+          <div className="title">title</div>
+          <div className="selections">
+            <Button className="button" onClick={this.onClick}>
+              选项一
+            </Button>
+            <Button className="button" onClick={this.onClick}>
+              选项二
+            </Button>
+          </div>
+        </div>
+
+        <div className="steps">
+          <Steps
+            type="navigation"
+            current={this.state.current}
+            onChange={this.onChangeStep}
+            className="site-navigation-steps"
+          >
+            <Step status="wait" title="1/4" />
+            <Step status="wait" title="2/4" />
+            <Step status="wait" title="3/4" />
+            <Step status="wait" title="4/4" />
+          </Steps>
+        </div>
+      </div>
+```
+
+##### 工具类代码
+
+- 请求（ajaxUtil.js）
+
+  ```javascript
+  import axios from 'axios'
+  
+  export default function ajax(url, data = {}, type = 'GET') {
+      if (type === 'GET') {
+          return axios.get(url, {
+              params: data
+          }
+          )
+      }
+      else {
+          return axios.post(url, data
+          )
+      }
+  }
+  ```
+
+  
+
+- 封装请求(ajaxIndex.js)
+
+  ```javascript
+  import ajax from "./ajaxUtil"
+  
+  function getTopic(){
+        return ajax("/api/topic", {id: 'id'}, 'GET')
+  }
+  
+  function subResult(data){
+        return ajax("/api/topic", data, 'POST')
+  }
+  
+  export default {getTopic, subResult}
+  ```
+
+  
+
+- 内存管理（memoryUtil.js）
+
+  ```javascript
+  export default{
+        user: {},
+  }
+  ```
+
+  
+
+- 存储管理（storeUtil.js）
+
+  ```javascript
+  import store from 'store'
+  
+  const USER_KEY = 'user_key'
+  
+  export default {
+        saveUser(user){
+              store.set(USER_KEY, user)
+       },
+       getUser(){
+             return store.get(USER_KEY) || null
+       },
+       removeUser(){
+             store.remove(USER_KEY)
+       }
+  }
+  ```
+
+  
 
 ## Available Scripts
 
