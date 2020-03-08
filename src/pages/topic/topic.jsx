@@ -3,6 +3,7 @@ import React from "react";
 import Memory from "../../utils/memoryUtil";
 import Store from "../../utils/storeUtil";
 import ajax from "../../utils/ajaxIndex";
+import "./topic.css";
 import { createBrowserHistory } from "history";
 
 const history = createBrowserHistory();
@@ -36,13 +37,19 @@ export default class Topic extends React.Component {
 
   render() {
     return (
-      <div>
-        <Button className="button" onClick={this.onClick}>
-          选项一
-        </Button>
-        <Button className="button" onClick={this.onClick}>
-          选项二
-        </Button>
+      <div className="topic">
+        <div className="container">
+          <div className="title">title</div>
+          <div className="selections">
+            <Button className="button" onClick={this.onClick}>
+              选项一
+            </Button>
+            <Button className="button" onClick={this.onClick}>
+              选项二
+            </Button>
+          </div>
+        </div>
+
         <div className="steps">
           <Steps
             type="navigation"
