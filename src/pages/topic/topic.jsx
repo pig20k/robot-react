@@ -48,6 +48,8 @@ export default class Topic extends React.Component {
               选项二
             </Button>
           </div>
+          <object id="flashDemo" type="application/x-shockwave-flash" data="./test.swf">
+    </object>
         </div>
 
         <div className="steps">
