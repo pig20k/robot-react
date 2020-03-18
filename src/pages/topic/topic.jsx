@@ -3,11 +3,15 @@ import React from "react";
 import Memory from "../../utils/memoryUtil";
 import Store from "../../utils/storeUtil";
 import ajax from "../../utils/ajaxIndex";
+import ReactSWF from "react-swf";
 import "./topic.css";
-import { createBrowserHistory } from "history";
+// import { createBrowserHistory } from "history";
 
-const history = createBrowserHistory();
+// const history = createBrowserHistory();
 const { Step } = Steps;
+const SWF_ID_PREFIX = '__MyExternalInterfaceExample_SWFID_';
+const SWF_CALL_NAME_PREFIX = '__MyExternalInterfaceExample_SWFCall_';
+let nextUID = 0;
 Memory.user = Store.getUser();
 
 export default class Topic extends React.Component {
@@ -17,8 +21,12 @@ export default class Topic extends React.Component {
       id: "",
       titles: [],
       selections: [],
+      filePath: './swf/伦理1.swf',
       current: 0
     };
+    this._uid = nextUID++;
+
+    window[SWF_CALL_NAME_PREFIX + this._uid] = this.handleSWFCall.bind(this);
   }
 
   onChangeStep = current => {
@@ -34,12 +42,33 @@ export default class Topic extends React.Component {
       });
     });
   }
+  handleSWFCall() {
+    // Beware; SWF calls are executed in the context of SWF Player.
+    console.log("SWFCall", arguments);
+    return "foobar";
+  }
+
+  invokeSWFMyCallback(arg) {
+    console.log("invoke")
+    // Beware; SWF Player does not sufficiently escape serialized arguments.
+    return this._swfPlayerNode.myCallback(arg);
+  }
 
   render() {
     return (
       <div className="topic">
         <div className="container">
-          <div className="title">title</div>
+          <ReactSWF
+            src={require(this.state.filePath)}
+            width="1000"
+            height="1000"
+            wmode="transparent"
+            // flashVars={{ foo: "A", bar: 1 }}
+            ref={c => this._swfPlayerNode = c}
+            id={SWF_ID_PREFIX + this._uid}
+            flashVars={{myCallbackName: SWF_CALL_NAME_PREFIX + this._uid}}
+          ></ReactSWF>
+          {/* <div className="title">title</div> */}
           <div className="selections">
             <Button className="button" onClick={this.onClick}>
               选项一
@@ -48,8 +77,6 @@ export default class Topic extends React.Component {
               选项二
             </Button>
           </div>
-          <object id="flashDemo" type="application/x-shockwave-flash" data="./test.swf">
-    </object>
         </div>
 
         <div className="steps">

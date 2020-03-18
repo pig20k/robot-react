@@ -2,11 +2,12 @@ import React from "react";
 import Memory from "../../utils/memoryUtil";
 import Store from "../../utils/storeUtil";
 import Topic from "../topic/topic";
+import Info from "../info/info"
 import { Redirect, Route, Switch, BrowserRouter } from "react-router-dom";
 import { Layout, Menu} from "antd";
 import "./admin.css";
-import { createBrowserHistory } from "history";
-const history = createBrowserHistory();
+// import { createBrowserHistory } from "history";
+// const history = createBrowserHistory();
 const { Header, Footer} = Layout;
 
 Memory.user = Store.getUser();
@@ -41,8 +42,9 @@ export default class Admin extends React.Component {
         <div className='content'>
             <BrowserRouter>
               <Switch>
+                <Route path="/info" component={Info}></Route>
                 <Route path="/topic" component={Topic}></Route>
-                <Redirect to="/topic"></Redirect>
+                <Redirect to="/info"></Redirect>
               </Switch>
             </BrowserRouter>
         </div>
