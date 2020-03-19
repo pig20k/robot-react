@@ -1,5 +1,9 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 # 人工智能仿真
+# 前端
+需要安装node.js npm
+在项目根目录执行命令 npm install
+完成后 执行命令 npm start 即可弹出页面
+后端服务器已放在服务器上，可以直接使用
 
 ### 页面设计
 

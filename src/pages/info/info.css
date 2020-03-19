@@ -1,0 +1,22 @@
+.info-form{
+      width: 500px;
+      height: 500px;
+      display: flex;
+      align-items: center;
+      margin: 0 auto;
+}
+
+.form-items{
+      display: flex;
+      flex-direction: column;
+      min-width: 500px;
+      align-items: center;
+}
+
+.item{
+      width: 500px;
+}
+
+.button{
+      text-align: center;
+}

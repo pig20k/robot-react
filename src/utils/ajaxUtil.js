@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-export default function ajax(url, data = {}, type = 'GET') {
+export default function ajax(url, type = 'GET' ,data = {}) {
     if (type === 'GET') {
         return axios.get(url, {
             params: data
@@ -8,7 +8,7 @@ export default function ajax(url, data = {}, type = 'GET') {
         )
     }
     else {
-        return axios.post(url, data
+        return axios.post(url, data,{headers: {'Content-Type': 'application/json'}}
         )
     }
 }

@@ -1,11 +1,11 @@
 import ajax from "./ajaxUtil"
 
 function getTopic(){
-      return ajax("/api/topic", {id: 'id'}, 'GET')
+      return ajax("/api/questions", 'GET')
 }
 
 function subResult(data){
-      return ajax("/api/topic", data, 'POST')
+      return ajax("/api/answerRecord",'POST', data)
 }
 
 export default {getTopic, subResult}
