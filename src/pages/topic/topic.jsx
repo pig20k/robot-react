@@ -1,6 +1,6 @@
 import { Button, Steps } from "antd";
 import React from "react";
-import {Redirect} from "react-router-dom"
+import { Redirect } from "react-router-dom"
 import Memory from "../../utils/memoryUtil";
 import Store from "../../utils/storeUtil";
 import ajax from "../../utils/ajaxIndex";
@@ -78,10 +78,10 @@ export default class Topic extends React.Component {
     };
     ajax.subResult(JSON.stringify(data)).then(res => {
       console.log(res);
+      Store.removeInfo();
+      history.push("/info");
+      history.go();
     });
-    Store.removeInfo();
-    history.push("/info");
-    history.go();
   };
 
   componentDidMount() {
@@ -94,7 +94,7 @@ export default class Topic extends React.Component {
   }
 
   render() {
-    if(Store.getInfo() === null) return (<Redirect to="/info"></Redirect>)
+    if (Store.getInfo() === null) return (<Redirect to="/info"></Redirect>)
     let { current, swfs, currentSwf, imgs } = this.state;
     let disabled = "disabled";
     if (current === this.state.data.length - 1) {
@@ -103,23 +103,10 @@ export default class Topic extends React.Component {
     let arr = this.state.data.map((item, index) => {
       return <Step key={index}></Step>;
     });
-    // let swfArr = this.state.swfs.map((item, index) => {
-    //   return   <ReactSWF
-    //         src={item}
-    //         width="1000"
-    //         height="1000"
-    //         wmode="transparent"
-    //         flashVars={{ foo: "A", bar: 1 }}
-    //         id="g001"
-    //       ></ReactSWF>
-    // })
-    // let renderSwf = swfArr[currentSwf]
     return (
       <div className="topic">
         <div className="container">
           <img src={imgs[currentSwf]} className="image"></img>
-          {/* <embed src={swfs[currentSwf]} width="1000" height="1000"/> */}
-          {/* <div className="title">title</div> */}
           <div className="selections">
             <Button className="button" id="1" onClick={this.onClick}>
               {this.state.choices[0]}
