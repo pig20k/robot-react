@@ -30,6 +30,13 @@ export default class Info extends React.Component {
               <Option value="Yunfu">云浮</Option>
               <Option value="Meizhou">梅州</Option>
             </Select>
+            </Form.Item>
+          <Form.Item name="gender" className="item" 
+           rules={[{ required: true, message: 'Please input your gender!' }]}>
+            <Select placeholder="请选择性别">
+              <Option value="female">女</Option>
+              <Option value="male">男</Option>
+            </Select>
           </Form.Item>
           <Form.Item name="age" className="item"
            rules={[{ required: true, message: 'Please input your age!' }]}>

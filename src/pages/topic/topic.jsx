@@ -73,6 +73,7 @@ export default class Topic extends React.Component {
       eduCationBackound: info.education,
       age: parseInt(info.age),
       region: info.area,
+      gender: info.gender,
       choiceList: this.state.userChoices
     };
     ajax.subResult(JSON.stringify(data)).then(res => {
