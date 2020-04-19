@@ -70,7 +70,7 @@ export default class Topic extends React.Component {
   onSub = () => {
     let info = Store.getInfo();
     let data = {
-      eduCationBackound: info.education,
+      eduCationBackgound: info.education,
       age: parseInt(info.age),
       region: info.area,
       gender: info.gender,
