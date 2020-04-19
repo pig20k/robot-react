@@ -70,12 +70,13 @@ export default class Topic extends React.Component {
   onSub = () => {
     let info = Store.getInfo();
     let data = {
-      eduCationBackgound: info.education,
+      eduCationBackground: info.education,
       age: parseInt(info.age),
       region: info.area,
       gender: info.gender,
       choiceList: this.state.userChoices
     };
+    console.log(data)
     ajax.subResult(JSON.stringify(data)).then(res => {
       console.log(res);
       Store.removeInfo();
