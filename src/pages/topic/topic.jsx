@@ -34,6 +34,14 @@ export default class Topic extends React.Component {
         "img/2-1.png",
         "img/2-2.png"
       ],
+      gifs:[
+        "gif/1.gif",
+        "gif/1-1.gif",
+        "gif/1-2.gif",
+        "gif/2.jpg",
+        "gif/2-1.gif",
+        "gif/2-2.gif",
+      ],
       currentSwf: 0,
       filePath: "",
       current: 0,
@@ -96,7 +104,7 @@ export default class Topic extends React.Component {
 
   render() {
     if (Store.getInfo() === null) return (<Redirect to="/info"></Redirect>)
-    let { current, swfs, currentSwf, imgs } = this.state;
+    let { current, swfs, currentSwf, imgs , gifs} = this.state;
     let disabled = "disabled";
     if (current === this.state.data.length - 1) {
       disabled = "";
@@ -107,7 +115,7 @@ export default class Topic extends React.Component {
     return (
       <div className="topic">
         <div className="container">
-          <img src={imgs[currentSwf]} className="image"></img>
+          <img src={gifs[currentSwf]} className="image"></img>
           <div className="selections">
             <Button className="button" id="1" onClick={this.onClick}>
               {this.state.choices[0]}
