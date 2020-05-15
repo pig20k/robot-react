@@ -1,48 +1,54 @@
-.topic{
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      flex-direction: column;
+.topic {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
-.title{
-      margin-top: 10px;
-      font-size: 100px;
-      text-align: center;
-      height: auto;
-      width: 100%;
+.title {
+  margin-top: 10px;
+  font-size: 100px;
+  text-align: center;
+  height: auto;
+  width: 100%;
 }
 
-.steps{
-      display: flex;
-      margin-bottom: 10px;
-      height: auto;
-      width: 100%;
+.question_title{
+  margin-top: 10px;
+  font-size: 30px;
 }
 
-.container{
-      display: flex;
-      align-items: center;
-      flex-direction: column;
-      min-height: 90%;
-      height: auto;
-      width: 100%;
-      margin-bottom: auto;
-    }
-
-.selections{
-      display: flex;
-      margin-top: auto;
-      align-items: center;
+.steps {
+  display: flex;
+  margin-bottom: 10px;
+  height: 50px;
+  width: 100%;
 }
 
-.swf{
-      height: 1000px;
-      width: 1000px;
+.container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  min-height: 90%;
+  height: auto;
+  width: 100%;
+  margin-bottom: auto;
 }
 
-.image{
-      height: 658px;
-      width: 1344px;
+.selections {
+  display: flex;
+  margin-top: 10px;
+  align-items: center;
+}
+
+.image {
+  margin-top: 10px;
+  max-height: 700px;
+  max-width: 900px;
+}
+
+.button{
+  min-width: 200px;
+  min-height: 40px;
 }

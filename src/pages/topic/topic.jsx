@@ -1,10 +1,9 @@
 import { Button, Steps } from "antd";
 import React from "react";
-import { Redirect } from "react-router-dom"
+import { Redirect } from "react-router-dom";
 import Memory from "../../utils/memoryUtil";
 import Store from "../../utils/storeUtil";
 import ajax from "../../utils/ajaxIndex";
-import ReactSWF from "react-swf";
 import "./topic.css";
 import { createBrowserHistory } from "history";
 const history = createBrowserHistory();
@@ -16,25 +15,10 @@ export default class Topic extends React.Component {
     super(props);
     this.state = {
       id: "",
+      button_status: "disabled",
       data: [],
       choices: [],
-      swfs: [
-        "swf/伦理1.swf",
-        "swf/伦理1-1-1.swf",
-        "swf/伦理1-1-2.swf",
-        "swf/伦理1-2.swf",
-        "swf/伦理1-2-1.swf",
-        "swf/伦理1-2-2.swf"
-      ],
-      imgs: [
-        "img/1.png",
-        "img/1-1.png",
-        "img/1.png",
-        "img/2.png",
-        "img/2-1.png",
-        "img/2-2.png"
-      ],
-      gifs:[
+      gifs: [
         "gif/1.gif",
         "gif/1-1.gif",
         "gif/1-2.gif",
@@ -42,95 +26,109 @@ export default class Topic extends React.Component {
         "gif/2-1.gif",
         "gif/2-2.gif",
       ],
-      currentSwf: 0,
+      currentGif: 0,
       filePath: "",
       current: 0,
-      userChoices: []
+      title: "",
+      userChoices: [],
     };
   }
 
-  onChangeStep = current => {
+  onChangeStep = (current) => {
     this.setState({
       current,
       choices: this.state.data[current].choices,
-      currentSwf: current * 3
+      currentGif: current * 3,
     });
   };
 
-  onClick = target => {
+  onClick = (target) => {
     if (target.target.id === "1") {
       let choices = this.state.userChoices;
       choices[this.state.current] = 1;
       this.setState({
-        currentSwf: this.state.current * 3 + 1,
-        userChoices: choices
+        currentGif: this.state.current * 3 + 1,
+        userChoices: choices,
+        button_status: "",
       });
     } else {
       let choices = this.state.userChoices;
       choices[this.state.current] = 2;
       this.setState({
-        currentSwf: this.state.current * 3 + 2,
-        userChoices: choices
+        currentGif: this.state.current * 3 + 2,
+        userChoices: choices,
+        button_status: "",
       });
     }
   };
 
-  onSub = () => {
-    let info = Store.getInfo();
-    let data = {
-      eduCationBackground: info.education,
-      age: parseInt(info.age),
-      region: info.area,
-      gender: info.gender,
-      choiceList: this.state.userChoices
-    };
-    console.log(data)
-    ajax.subResult(JSON.stringify(data)).then(res => {
-      console.log(res);
-      Store.removeInfo();
-      history.push("/info");
-      history.go();
-    });
+  onSub = (res) => {
+    if (this.state.current !== this.state.data.length - 1) {
+      this.setState({
+        current: this.state.current + 1,
+        choices: this.state.data[this.state.current + 1].choices,
+        title: this.state.data[this.state.current + 1].title,
+        button_status: "disabled",
+      });
+    } else {
+      let info = Store.getInfo();
+      let data = {
+        eduCationBackground: info.education,
+        age: parseInt(info.age),
+        region: info.area,
+        gender: info.gender,
+        choiceList: this.state.userChoices,
+      };
+      ajax.subResult(JSON.stringify(data)).then((res) => {
+        Store.removeInfo();
+        history.push("/info");
+        history.go();
+      });
+    }
   };
 
   componentDidMount() {
-    ajax.getTopic().then(res => {
+    ajax.getTopic().then((res) => {
       this.setState({
         data: res.data,
-        choices: res.data[0].choices
+        choices: res.data[0].choices,
+        title: res.data[0].title
       });
     });
   }
 
   render() {
-    if (Store.getInfo() === null) return (<Redirect to="/info"></Redirect>)
-    let { current, swfs, currentSwf, imgs , gifs} = this.state;
-    let disabled = "disabled";
+    if (Store.getInfo() === null) return <Redirect to="/info"></Redirect>;
+    let { current, currentGif, gifs, title, choices } = this.state;
+    let choice_one = choices[0];
+    let choice_two = choices[1];
+    let button_text = "下一题";
     if (current === this.state.data.length - 1) {
-      disabled = "";
+      button_text = "提交";
     }
     let arr = this.state.data.map((item, index) => {
-      return <Step key={index}></Step>;
+      return <Step key={index} disabled="disabled"></Step>;
     });
     return (
       <div className="topic">
         <div className="container">
-          <img src={gifs[currentSwf]} className="image"></img>
+          <img src={gifs[currentGif]} className="image"></img>
+          <p className="question_title">{title}</p>
           <div className="selections">
             <Button className="button" id="1" onClick={this.onClick}>
-              {this.state.choices[0]}
+              {choice_one}
             </Button>
             <Button className="button" id="2" onClick={this.onClick}>
-              {this.state.choices[1]}
+              {choice_two}
             </Button>
           </div>
           <Button
             type="primary"
-            disabled={disabled}
+            disabled={this.state.button_status}
             style={{ marginTop: 10 }}
             onClick={this.onSub}
           >
-            提交
+            {button_text}
           </Button>
         </div>
 
