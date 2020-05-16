@@ -46,9 +46,9 @@ export default class Topic extends React.Component {
   };
 
   onClick = (target) => {
-    if (target.target.id === "1") {
+    if (target.target.id === "0") {
       let choices = this.state.userChoices;
-      choices[this.state.current] = 1;
+      choices[this.state.current] = 0;
       this.setState({
         currentGif: this.state.current * 3 + 1,
         userChoices: choices,
@@ -56,7 +56,7 @@ export default class Topic extends React.Component {
       });
     } else {
       let choices = this.state.userChoices;
-      choices[this.state.current] = 2;
+      choices[this.state.current] = 1;
       this.setState({
         currentGif: this.state.current * 3 + 2,
         userChoices: choices,
@@ -82,10 +82,11 @@ export default class Topic extends React.Component {
         gender: info.gender,
         choiceList: this.state.userChoices,
       };
+      console.log(data)
       ajax.subResult(JSON.stringify(data)).then((res) => {
         Store.removeInfo();
         history.push("/info");
-        history.go();
+        // history.go();
       });
     }
   };
@@ -118,10 +119,10 @@ export default class Topic extends React.Component {
           <img src={gifs[currentGif]} className="image"></img>
           <p className="question_title">{title}</p>
           <div className="selections">
-            <Button className="button" id="1" onClick={this.onClick}>
+            <Button className="button" id="0" onClick={this.onClick}>
               {choice_one}
             </Button>
-            <Button className="button" id="2" onClick={this.onClick}>
+            <Button className="button" id="1" onClick={this.onClick}>
               {choice_two}
             </Button>
           </div>
